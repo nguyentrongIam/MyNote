@@ -39,12 +39,9 @@ function Settings() {
     return (
         <div style={{ padding: '20px' }}>
             <h2>Cài đặt hệ thống</h2>
-<<<<<<< HEAD
-            <div>
-                <label>Tên hiển thị: </label>
-=======
+
             <div><label>Tên hiển thị: </label>
->>>>>>> d3224c497900bc4629bc1b25a35d45873537428b
+
                 <input name="displayName" value={profile.displayName} onChange={handleChange}
                 />
             </div>
@@ -60,12 +57,10 @@ function Settings() {
                 <input type="password" name="password" value={profile.password}
                     onChange={handleChange} />
             </div>
-<<<<<<< HEAD
-            <button onClick={handleSave} style={{ marginTop: '20px' }}>Lưu thay
-                đổi</button>
-=======
+
+
             <button onClick={handleSave} style={{ marginTop: '20px' }}>Lưu thayđổi</button>
->>>>>>> d3224c497900bc4629bc1b25a35d45873537428b
+
         </div>
     );
 }
