@@ -1,12 +1,4 @@
-/**
-* ============================================================================
-* COMPONENT: VÙNG KÍN & BẢO MẬT (PrivateNotes.jsx)
-* Author: [Điền tên Frontend Dev]
-*
-* [LƯU Ý]: Sử dụng lại phần lớn UI từ Notes.jsx. Thêm state isUnlocked để làm "cửa
-bảo vệ".
-* ============================================================================
-*/
+
 import React, { useState, useEffect } from 'react';
 function PrivateNotes() {
     /* ========================================================================
