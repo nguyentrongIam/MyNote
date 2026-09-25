@@ -11,12 +11,22 @@ app.use(express.json());
 const profilePath = path.join(__dirname, 'data', 'profile.json');
 const privateNotesFile = path.join(__dirname, 'data', 'private.json');
 const notesDir = path.join(__dirname, 'data', 'notes');
+const logFile = path.join(__dirname, 'data', 'history.log'); // File lưu log xóa
 
 if (!fs.existsSync(notesDir)) fs.mkdirSync(notesDir, { recursive: true });
 if (!fs.existsSync(privateNotesFile)) fs.writeFileSync(privateNotesFile, '[]', 'utf8');
+if (!fs.existsSync(logFile)) fs.writeFileSync(logFile, '', 'utf8');
+
+// Hàm ghi log
+const writeLog = (action) => {
+  const time = new Date().toLocaleString('vi-VN');
+  const logMessage = `[${time}] ${action}\n`;
+  fs.appendFileSync(logFile, logMessage, 'utf8');
+  console.log(logMessage.trim()); // In ra console của server
+};
 
 // ==========================================
-// SPRINT 1: API PROFILE & CẤU HÌNH
+// API PROFILE & CẤU HÌNH
 // ==========================================
 app.get('/api/profile', (req, res) => {
   try {
@@ -41,7 +51,7 @@ app.put('/api/profile', (req, res) => {
 });
 
 // ==========================================
-// SPRINT 2: GHI CHÚ CÔNG KHAI
+// GHI CHÚ CÔNG KHAI
 // ==========================================
 const getFilePath = (topic) => path.join(notesDir, `${topic}.json`);
 
@@ -97,8 +107,15 @@ app.delete('/api/notes/:topic/:id', (req, res) => {
   const filePath = getFilePath(req.params.topic);
   try {
     let notes = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const noteToDelete = notes.find(n => n.id === req.params.id);
     const newNotes = notes.filter(n => n.id !== req.params.id);
     fs.writeFileSync(filePath, JSON.stringify(newNotes, null, 2), 'utf8');
+    
+    // GHI LOG QUÁ TRÌNH XÓA
+    if (noteToDelete) {
+      writeLog(`ĐÃ XÓA GHI CHÚ CÔNG KHAI - Chủ đề: ${req.params.topic} | Tiêu đề: "${noteToDelete.title}" | ID: ${noteToDelete.id}`);
+    }
+
     res.json({ success: true, message: "Đã xóa ghi chú thành công" });
   } catch (error) {
     res.status(500).json({ message: "Lỗi xóa ghi chú" });
@@ -106,7 +123,7 @@ app.delete('/api/notes/:topic/:id', (req, res) => {
 });
 
 // ==========================================
-// SPRINT 3: BẢO MẬT & GHI CHÚ RIÊNG TƯ
+// BẢO MẬT & GHI CHÚ RIÊNG TƯ
 // ==========================================
 app.post('/api/private/auth', (req, res) => {
   try {
@@ -164,7 +181,15 @@ app.put('/api/private/notes/:id', (req, res) => {
 app.delete('/api/private/notes/:id', (req, res) => {
   try {
     let notes = JSON.parse(fs.readFileSync(privateNotesFile, 'utf8'));
+    const noteToDelete = notes.find(n => n.id === req.params.id);
+    
     fs.writeFileSync(privateNotesFile, JSON.stringify(notes.filter(n => n.id !== req.params.id), null, 2), 'utf8');
+    
+    // GHI LOG QUÁ TRÌNH XÓA
+    if (noteToDelete) {
+      writeLog(`ĐÃ XÓA BÍ MẬT - Tiêu đề: "${noteToDelete.title}" | ID: ${noteToDelete.id}`);
+    }
+
     res.json({ success: true, message: "Đã xóa ghi chú riêng tư" });
   } catch (error) {
     res.status(500).json({ message: "Lỗi xóa" });
@@ -172,7 +197,7 @@ app.delete('/api/private/notes/:id', (req, res) => {
 });
 
 // ==========================================
-// SPRINT 4: TÌM KIẾM & LỌC GHI CHÚ
+// TÌM KIẾM & LỌC GHI CHÚ
 // ==========================================
 app.get('/api/search/notes/:topic', (req, res) => {
   const keyword = (req.query.q || '').toLowerCase();
