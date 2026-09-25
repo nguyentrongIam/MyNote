@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "id": "1790320456990",
+    "title": "ASP.NET Core",
+    "content": "Tìm hiểu về Dependency Injection, Middleware pipeline và Minimal APIs trong ASP.NET Core 8.",
+    "createdAt": "2026-09-25T07:14:16.990Z",
+    "updatedAt": "2026-09-25T07:14:16.990Z"
+  },
+  {
+    "id": "1790320480451",
+    "title": "Kế hoạch tuần tới",
+    "content": "- Hoàn thành UI Responsive cho mobile & PC\n- Viết API authentication cho Private Notes\n- Review code với team vào sáng thứ Bảy",
+    "createdAt": "2026-09-25T07:14:40.451Z",
+    "updatedAt": "2026-09-25T07:14:56.636Z"
+  },
+  {
+    "id": "1790320522026",
+    "title": "Tailwind CSS Tips",
+    "content": "Sử dụng 'pb-safe' cho thanh Bottom Bar trên iOS để tránh bị che bởi Thanh điều hướng hệ thống (Home Indicator).",
+    "createdAt": "2026-09-25T07:15:22.026Z",
+    "updatedAt": "2026-09-25T07:15:22.026Z"
+  },
+  {
+    "id": "1790320548882",
+    "title": "Danh sách mua sắm",
+    "content": "1. Bàn phím cơ không dây\n2. Cáp sạc Type-C 100W\n3. Màn hình Dell UltraSharp 27 inch",
+    "createdAt": "2026-09-25T07:15:48.882Z",
+    "updatedAt": "2026-09-25T07:15:48.882Z"
+  },
+  {
+    "id": "1790320572218",
+    "title": "Ý tưởng ứng dụng Notes",
+    "content": "Tích hợp thêm tính năng ghim ghi chú quan trọng lên đầu (Pin to top) và xuất dữ liệu dạng JSON/Markdown.",
+    "createdAt": "2026-09-25T07:16:12.218Z",
+    "updatedAt": "2026-09-25T07:16:12.218Z"
+  }
+]
